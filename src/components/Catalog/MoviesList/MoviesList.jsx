@@ -7,7 +7,7 @@ class MoviesList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeCard: null
+      activeCard: -1
     };
   }
 
@@ -23,8 +23,11 @@ class MoviesList extends React.PureComponent {
           <SmallMovieCard
             key={f.id}
             name={f.name}
-            img={f.posterImage}
-            onCardActive={() => this.handlerActiveCard(f.id)}
+            img={f.previewImage}
+            onCardActive={(id) => this.handlerActiveCard(id)}
+            activeCard={this.state.activeCard}
+            previewVideo={f.previewVideoLink}
+            id={f.id}
           />
         )}
       </div>
