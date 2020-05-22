@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieCard from './MovieCard/MovieCard.jsx';
-import Catalog from './Catalog/Catalog.jsx';
+import CatalogContainer from './Catalog/CatalogContainer.jsx';
 import Footer from './Footer/Footer.jsx';
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <React.Fragment>
       <MovieCard />
       <div className="page-content">
-        <Catalog />
+        <CatalogContainer />
         <Footer />
       </div>
     </React.Fragment>
@@ -17,3 +17,4 @@ const App = () => {
 };
 
 export default App;
+
