@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from './../../common/Logo/Logo.jsx';
+import Logo from './../Logo/Logo.jsx';
 
 const Header = () => {
   return (

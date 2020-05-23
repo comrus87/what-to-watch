@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import GenresItem from './GenresItem.jsx';
 
 const GenresList = ({genres, onGenreClick, currentGenre}) => {
@@ -13,6 +14,12 @@ const GenresList = ({genres, onGenreClick, currentGenre}) => {
       })}
     </ul>
   );
+};
+
+GenresList.propTypes = {
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onGenreClick: PropTypes.func.isRequired,
+  currentGenre: PropTypes.string.isRequired
 };
 
 export default GenresList;

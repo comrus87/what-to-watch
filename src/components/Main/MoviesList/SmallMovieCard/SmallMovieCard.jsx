@@ -21,8 +21,8 @@ const SmallMovieCard = ({name, img, onCardActive, activeCard, previewVideo, id})
 
     <article
       className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => setTimer()}
-      onMouseLeave={() => clearTimer()}
+      onMouseEnter={setTimer}
+      onMouseLeave={clearTimer}
     >
       <div className="small-movie-card__image">
         {activeCard === id
