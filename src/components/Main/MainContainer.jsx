@@ -11,6 +11,7 @@ class MainContainer extends React.PureComponent {
   onGenreClick(evt, genre) {
     evt.preventDefault();
     this.props.setCurrentGenre(genre);
+    this.props.setCountShowFilms(COUNT_SHOWN_FILMS);
   }
 
   componentDidMount() {

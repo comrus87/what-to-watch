@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {Link} from 'react-router-dom';
 
 const SmallMovieCard = ({name, img, onCardActive, activeCard, previewVideo, id}) => {
 
@@ -18,7 +18,6 @@ const SmallMovieCard = ({name, img, onCardActive, activeCard, previewVideo, id})
   };
 
   return (
-
     <article
       className="small-movie-card catalog__movies-card"
       onMouseEnter={setTimer}
@@ -31,7 +30,7 @@ const SmallMovieCard = ({name, img, onCardActive, activeCard, previewVideo, id})
         }
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{name}</a>
+        <Link to={`/movie/${id}`} className="small-movie-card__link">{name}</Link>
       </h3>
     </article>
   );

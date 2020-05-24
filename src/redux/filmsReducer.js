@@ -10,7 +10,8 @@ const SET_COUNT_SHOW = `films/SET_COUNT_SHOW`;
 const initialState = {
   films: [],
   currentGenre: DEFAULT_GENRE,
-  countShownFilms: COUNT_SHOWN_FILMS
+  countShownFilms: COUNT_SHOWN_FILMS,
+  currentMovieId: null
 };
 
 
@@ -42,3 +43,4 @@ export const getFilms = () => (dispatch) => {
 };
 
 export default filmsReducer;
+

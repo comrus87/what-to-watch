@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContainer from './Main/MainContainer.jsx';
-import MoviePage from './MoviePage/MoviePage.jsx';
+import MoviePageContainer from './MoviePage/MoviePageContainer.jsx';
 import {Route, Switch} from 'react-router-dom';
 
 const App = () => {
@@ -8,8 +8,8 @@ const App = () => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path='/' component={MainContainer} />
-        <Route exact path='/film' component={MoviePage} />
+        <Route exact path='/' render={() => <MainContainer />} />
+        <Route exact path='/movie/:id?' render={() => <MoviePageContainer />} />
       </Switch>
     </React.Fragment>
   );
