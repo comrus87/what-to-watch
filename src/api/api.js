@@ -9,5 +9,17 @@ const instance = axios.create({
 export const filmsApi = {
   getFilms() {
     return instance.get(`/films`).then((response) => response.data);
+  },
+
+  getPromoFilms() {
+    return instance.get(`/films/promo`).then((response) => response.data);
+  },
+
+  getComments(id) {
+    return instance.get(`/comments/${id}`).then((response) => response.data);
+  },
+
+  postComments(id, comment) {
+    return instance.post(`/comments/${id}`, {comment}).then((response) => response.data);
   }
 };

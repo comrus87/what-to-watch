@@ -1,43 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SmallMovieCard from './SmallMovieCard/SmallMovieCard.jsx';
+import Tabs from './Tabs.jsx';
 
-class MoviesList extends React.PureComponent {
-
+class TabsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
-      activeCard: -1
+      tabs: [`Overview`, `Details`, `Reviews`],
+      activeTab: `Overview`
     };
   }
 
-  handlerActiveCard(id) {
-    this.setState({activeCard: id});
+  onTabNavClick(evt, tab) {
+    evt.preventDefault();
+    this.setState({activeTab: tab});
   }
-
 
   render() {
     return (
-      <div className="catalog__movies-list">
-        {this.props.films.map((f) =>
-          <SmallMovieCard
-            key={f.id}
-            name={f.name}
-            img={f.previewImage}
-            onCardActive={(id) => this.handlerActiveCard(id)}
-            activeCard={this.state.activeCard}
-            previewVideo={f.previewVideoLink}
-            id={f.id}
-          />
-        )}
-      </div>
+      <Tabs
+        onTabNavClick={this.onTabNavClick.bind(this)}
+        tabs={this.state.tabs}
+        activeTab={this.state.activeTab}
+        film={this.props.film}
+      />
     );
   }
 }
 
-
-MoviesList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
+TabsContainer.propTypes = {
+  film: PropTypes.shape({
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
@@ -55,7 +48,7 @@ MoviesList.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     videoLink: PropTypes.string.isRequired,
     previewVideoLink: PropTypes.string.isRequired
-  }))
+  })
 };
 
-export default MoviesList;
+export default TabsContainer;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Main from './Main.jsx';
-import {getFilms, setCurrentGenre, setCountShowFilms} from './../../redux/filmsReducer.js';
+import {setCurrentGenre, setCountShowFilms} from './../../redux/filmsReducer.js';
 import {getShownFilmsSelector, getCurrentGenreSelector, getGenresSelector, isShowButtonMoreSelector, getCountShownFilms} from './../../redux/selectors.js';
 import {connect} from 'react-redux';
 import {COUNT_SHOWN_FILMS} from './../../utils/const.js';
@@ -12,10 +12,6 @@ class MainContainer extends React.PureComponent {
     evt.preventDefault();
     this.props.setCurrentGenre(genre);
     this.props.setCountShowFilms(COUNT_SHOWN_FILMS);
-  }
-
-  componentDidMount() {
-    this.props.getFilms();
   }
 
   onButtonMoreClick() {
@@ -48,7 +44,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getFilms,
   setCurrentGenre,
   setCountShowFilms
 };
@@ -76,7 +71,6 @@ MainContainer.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   setCurrentGenre: PropTypes.func.isRequired,
-  getFilms: PropTypes.func.isRequired,
   isShowButtonMore: PropTypes.bool.isRequired,
   setCountShowFilms: PropTypes.func.isRequired,
   countShownFilms: PropTypes.number.isRequired
