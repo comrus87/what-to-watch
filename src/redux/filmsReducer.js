@@ -1,5 +1,5 @@
 import {filmsApi} from './../api/api.js';
-import {adapterFilms} from './../utils/adapter.js';
+import {adapterFilms, adapterFilm} from './../utils/adapter.js';
 import {DEFAULT_GENRE} from './../utils/utils.js';
 import {COUNT_SHOWN_FILMS} from './../utils/const.js';
 
@@ -8,13 +8,15 @@ const SET_CURRENT_GENRE = `films/SET_CURRENT_GENRE`;
 const SET_COUNT_SHOW = `films/SET_COUNT_SHOW`;
 const SET_CURRENT_MOVIE_ID = `films/SET_CURRENT_MOVIE_ID`;
 const SET_FILM_COMMENTS = `films/SET_FILM_COMMENTS`;
+const SET_PROMO_FILM = `films/SET_PROMO_FILM`;
 
 const initialState = {
   films: [],
   currentGenre: DEFAULT_GENRE,
   countShownFilms: COUNT_SHOWN_FILMS,
   currentMovieId: null,
-  comments: []
+  comments: [],
+  promoFilm: null
 };
 
 
@@ -35,6 +37,9 @@ const filmsReducer = (state = initialState, action) => {
     case SET_FILM_COMMENTS:
       return Object.assign({}, state, {comments: action.comments});
 
+    case SET_PROMO_FILM:
+      return Object.assign({}, state, {promoFilm: action.film});
+
     default: return state;
   }
 };
@@ -44,6 +49,7 @@ export const setCurrentGenre = (currentGenre) => ({type: SET_CURRENT_GENRE, curr
 export const setCountShowFilms = (countShownFilms) => ({type: SET_COUNT_SHOW, countShownFilms});
 export const setCurrentMovieId = (currentMovieId) => ({type: SET_CURRENT_MOVIE_ID, currentMovieId});
 export const setComments = (comments) => ({type: SET_FILM_COMMENTS, comments});
+export const setPromoFilm = (film) => ({type: SET_PROMO_FILM, film});
 
 
 export const getFilms = () => (dispatch) => {
@@ -61,6 +67,13 @@ export const getFilmComments = (id) => (dispatch) => {
   });
 };
 
+export const getPromoFilm = () => (dispatch) => {
+  let data = filmsApi.getPromoFilm();
+  data.then((dataFilm) => {
+    const film = adapterFilm(dataFilm);
+    dispatch(setPromoFilm(film));
+  });
+};
 
 export default filmsReducer;
 

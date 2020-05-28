@@ -6,6 +6,7 @@ export const getCurrentGenreSelector = (state) => state.films.currentGenre;
 export const getCountShownFilms = (state) => state.films.countShownFilms;
 export const getCurrentMovieId = (state) => state.films.currentMovieId;
 export const getCommentsSelector = (state) => state.films.comments;
+export const getPromoFilmSelector = (state) => state.films.promoFilm;
 
 // Получаем список жанров
 export const getGenresSelector = createSelector(

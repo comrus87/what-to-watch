@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import MainContainer from './Main/MainContainer.jsx';
 import MoviePageContainer from './MoviePage/MoviePageContainer.jsx';
 import {Route, Switch} from 'react-router-dom';
-import {getFilms, setCurrentMovieId} from './../redux/filmsReducer.js';
+import {getFilms, setCurrentMovieId, getFilmComments} from './../redux/filmsReducer.js';
 import {connect} from 'react-redux';
 
 
@@ -22,6 +22,7 @@ class App extends React.PureComponent {
           <Route exact path='/movie/:id?' render={
             ({match}) => {
               this.props.setCurrentMovieId(+match.params.id);
+              this.props.getFilmComments(+match.params.id);
               return <MoviePageContainer />;
             }}
           />
@@ -35,8 +36,15 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   getFilms: PropTypes.func.isRequired,
-  setCurrentMovieId: PropTypes.func.isRequired
+  setCurrentMovieId: PropTypes.func.isRequired,
+  getFilmComments: PropTypes.func.isRequired
 };
 
-export default connect(null, {getFilms, setCurrentMovieId})(App);
+const mapDispatchToProps = {
+  getFilms,
+  setCurrentMovieId,
+  getFilmComments
+};
+
+export default connect(null, mapDispatchToProps)(App);
 

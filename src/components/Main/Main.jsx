@@ -5,9 +5,10 @@ import MoviesList from './../common/MoviesList/MoviesList.jsx';
 import GenresList from './GenresList/GenresList.jsx';
 import MoreButton from './MoreButton/MoreButton.jsx';
 import Footer from './../common/Footer/Footer.jsx';
+import {FilmPropType} from './../../utils/types.js';
 
-
-const Main = ({films, genres, onGenreClick, currentGenre, isShowButtonMore, onButtonMoreClick}) => {
+const Main = ({films, genres, onGenreClick, currentGenre, isShowButtonMore, onButtonMoreClick, promoFilm}) => {
+  console.log(promoFilm);
 
   return (
     <React.Fragment>
@@ -31,30 +32,13 @@ const Main = ({films, genres, onGenreClick, currentGenre, isShowButtonMore, onBu
 };
 
 Main.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string.isRequired),
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number,
-    id: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    videoLink: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired
-  })),
+  films: PropTypes.arrayOf(FilmPropType),
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   onGenreClick: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   isShowButtonMore: PropTypes.bool.isRequired,
-  onButtonMoreClick: PropTypes.func.isRequired
+  onButtonMoreClick: PropTypes.func.isRequired,
+  promoFilm: FilmPropType
 };
 
 export default Main;

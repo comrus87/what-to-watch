@@ -4,6 +4,7 @@ import Header from './../common/Header/Header.jsx';
 import Footer from './../common/Footer/Footer.jsx';
 import TabsContainer from './Tabs/TabsContainer.jsx';
 import MoviesList from './../common/MoviesList/MoviesList.jsx';
+import {FilmPropType} from './../../utils/types.js';
 
 const MoviePage = ({film, moreFilms}) => {
 
@@ -71,44 +72,8 @@ const MoviePage = ({film, moreFilms}) => {
 };
 
 MoviePage.propTypes = {
-  film: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string.isRequired),
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number,
-    id: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    videoLink: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired
-  }),
-  moreFilms: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string.isRequired),
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number,
-    id: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    videoLink: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired
-  }))
+  film: FilmPropType,
+  moreFilms: PropTypes.arrayOf(FilmPropType)
 };
 
 export default MoviePage;

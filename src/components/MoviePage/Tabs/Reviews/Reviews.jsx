@@ -1,26 +1,29 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import Review from './Review/Review.jsx';
+import {getCommentsSelector} from './../../../../redux/selectors.js';
+
 
 const Reviews = ({comments}) => {
-  console.log(comments);
 
   return (
     <React.Fragment>
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
 
-
-          <div className="review">
-            <blockquote className="review__quote">
-              <p className="review__text">Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.</p>
-
-              <footer className="review__details">
-                <cite className="review__author">Kate Muir</cite>
-                <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
-              </footer>
-            </blockquote>
-
-            <div className="review__rating">8,9</div>
-          </div>
+          {comments.length !== 0
+            ? comments.map((c) =>
+              <Review
+                key={c.id}
+                rating={c.rating}
+                comment={c.comment}
+                date={c.date}
+                user={c.user}
+              />
+            )
+            : <div className="review">No reviews yet</div>
+          }
 
         </div>
       </div>
@@ -28,4 +31,23 @@ const Reviews = ({comments}) => {
   );
 };
 
-export default Reviews;
+Reviews.propTypes = {
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    comment: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    date: PropTypes.string.isRequired
+  }))
+};
+
+const mapStateToProps = (state) => {
+  return {
+    comments: getCommentsSelector(state)
+  };
+};
+
+export default connect(mapStateToProps)(Reviews);

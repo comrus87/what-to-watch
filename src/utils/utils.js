@@ -47,3 +47,9 @@ export const formatTime = (time) => {
 
   return `${hours} h ${minutes} m`;
 };
+
+// Форматирует дату
+export const formatDate = (date) => {
+  const options = {month: `long`, day: `numeric`, year: `numeric`};
+  return new Intl.DateTimeFormat(`en-EN`, options).format(new Date(date));
+};

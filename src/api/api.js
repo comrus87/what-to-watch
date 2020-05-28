@@ -11,7 +11,7 @@ export const filmsApi = {
     return instance.get(`/films`).then((response) => response.data);
   },
 
-  getPromoFilms() {
+  getPromoFilm() {
     return instance.get(`/films/promo`).then((response) => response.data);
   },
 
