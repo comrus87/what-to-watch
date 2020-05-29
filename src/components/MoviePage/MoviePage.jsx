@@ -5,6 +5,7 @@ import Footer from './../common/Footer/Footer.jsx';
 import TabsContainer from './Tabs/TabsContainer.jsx';
 import MoviesList from './../common/MoviesList/MoviesList.jsx';
 import {FilmPropType} from './../../utils/types.js';
+import {Link} from 'react-router-dom';
 
 const MoviePage = ({film, moreFilms}) => {
 
@@ -28,18 +29,21 @@ const MoviePage = ({film, moreFilms}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+
+                <Link to={`/video/${film.id}`} className="btn btn--play movie-card__button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
+
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
                 </button>
+
                 <a href="add-review.html" className="btn movie-card__button">Add review</a>
               </div>
             </div>
@@ -73,7 +77,7 @@ const MoviePage = ({film, moreFilms}) => {
 
 MoviePage.propTypes = {
   film: FilmPropType,
-  moreFilms: PropTypes.arrayOf(FilmPropType)
+  moreFilms: PropTypes.arrayOf(FilmPropType).isRequired
 };
 
 export default MoviePage;

@@ -2,26 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from './MovieCard/MovieCard.jsx';
 import MoviesList from './../common/MoviesList/MoviesList.jsx';
-import GenresList from './GenresList/GenresList.jsx';
+import GenresListContainer from './GenresList/GenresListContainer.jsx';
 import MoreButton from './MoreButton/MoreButton.jsx';
 import Footer from './../common/Footer/Footer.jsx';
 import {FilmPropType} from './../../utils/types.js';
 
-const Main = ({films, genres, onGenreClick, currentGenre, isShowButtonMore, onButtonMoreClick, promoFilm}) => {
-  console.log(promoFilm);
+const Main = ({films, isShowButtonMore, onButtonMoreClick, promoFilm}) => {
 
   return (
     <React.Fragment>
-      <MovieCard />
+      <MovieCard promoFilm={promoFilm}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList
-            genres={genres}
-            onGenreClick={onGenreClick}
-            currentGenre={currentGenre}
-          />
+          <GenresListContainer />
+
           <MoviesList films={films} />
           {isShowButtonMore && <MoreButton onButtonMoreClick={onButtonMoreClick} />}
         </section>
@@ -32,10 +28,7 @@ const Main = ({films, genres, onGenreClick, currentGenre, isShowButtonMore, onBu
 };
 
 Main.propTypes = {
-  films: PropTypes.arrayOf(FilmPropType),
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onGenreClick: PropTypes.func.isRequired,
-  currentGenre: PropTypes.string.isRequired,
+  films: PropTypes.arrayOf(FilmPropType).isRequired,
   isShowButtonMore: PropTypes.bool.isRequired,
   onButtonMoreClick: PropTypes.func.isRequired,
   promoFilm: FilmPropType

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenresItem from './GenresItem.jsx';
+import GenresItem from './GenresItem/GenresItem.jsx';
 
 const GenresList = ({genres, onGenreClick, currentGenre}) => {
   return (

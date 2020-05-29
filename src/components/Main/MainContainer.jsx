@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Main from './Main.jsx';
-import {setCurrentGenre, setCountShowFilms, getPromoFilm} from './../../redux/filmsReducer.js';
+import {setCountShowFilms, getPromoFilm} from './../../redux/filmsReducer.js';
 import {
   getShownFilmsSelector,
-  getCurrentGenreSelector,
-  getGenresSelector,
   isShowButtonMoreSelector,
   getCountShownFilms,
   getPromoFilmSelector
@@ -15,12 +13,6 @@ import {COUNT_SHOWN_FILMS} from './../../utils/const.js';
 import {FilmPropType} from './../../utils/types.js';
 
 class MainContainer extends React.PureComponent {
-
-  onGenreClick(evt, genre) {
-    evt.preventDefault();
-    this.props.setCurrentGenre(genre);
-    this.props.setCountShowFilms(COUNT_SHOWN_FILMS);
-  }
 
   onButtonMoreClick() {
     const count = this.props.countShownFilms + COUNT_SHOWN_FILMS;
@@ -35,9 +27,6 @@ class MainContainer extends React.PureComponent {
     return (
       <Main
         films={this.props.films}
-        genres={this.props.genres}
-        currentGenre={this.props.currentGenre}
-        onGenreClick={this.onGenreClick.bind(this)}
         isShowButtonMore={this.props.isShowButtonMore}
         onButtonMoreClick={this.onButtonMoreClick.bind(this)}
         promoFilm={this.props.promoFilm}
@@ -49,8 +38,6 @@ class MainContainer extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     films: getShownFilmsSelector(state),
-    currentGenre: getCurrentGenreSelector(state),
-    genres: getGenresSelector(state),
     isShowButtonMore: isShowButtonMoreSelector(state),
     countShownFilms: getCountShownFilms(state),
     promoFilm: getPromoFilmSelector(state)
@@ -58,16 +45,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  setCurrentGenre,
   setCountShowFilms,
   getPromoFilm
 };
 
 MainContainer.propTypes = {
-  films: PropTypes.arrayOf(FilmPropType),
-  currentGenre: PropTypes.string.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setCurrentGenre: PropTypes.func.isRequired,
+  films: PropTypes.arrayOf(FilmPropType).isRequired,
   isShowButtonMore: PropTypes.bool.isRequired,
   setCountShowFilms: PropTypes.func.isRequired,
   countShownFilms: PropTypes.number.isRequired,

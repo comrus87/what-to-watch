@@ -25,7 +25,7 @@ const MoviesList = ({films, onCardActive, activeCard}) => {
 
 
 MoviesList.propTypes = {
-  films: PropTypes.arrayOf(FilmPropType),
+  films: PropTypes.arrayOf(FilmPropType).isRequired,
   onCardActive: PropTypes.func.isRequired,
   activeCard: PropTypes.number.isRequired
 };

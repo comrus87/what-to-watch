@@ -5,7 +5,7 @@ import MoviePageContainer from './MoviePage/MoviePageContainer.jsx';
 import {Route, Switch} from 'react-router-dom';
 import {getFilms, setCurrentMovieId, getFilmComments} from './../redux/filmsReducer.js';
 import {connect} from 'react-redux';
-
+import VideoPlayerContainer from './common/VideoPlayer/VideoPlayerContainer.jsx';
 
 class App extends React.PureComponent {
 
@@ -24,6 +24,13 @@ class App extends React.PureComponent {
               this.props.setCurrentMovieId(+match.params.id);
               this.props.getFilmComments(+match.params.id);
               return <MoviePageContainer />;
+            }}
+          />
+
+          <Route exact path='/video/:id?' render={
+            ({match}) => {
+              this.props.setCurrentMovieId(+match.params.id);
+              return <VideoPlayerContainer />;
             }}
           />
 

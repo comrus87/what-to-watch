@@ -16,7 +16,7 @@ const initialState = {
   countShownFilms: COUNT_SHOWN_FILMS,
   currentMovieId: null,
   comments: [],
-  promoFilm: null
+  promoFilm: {}
 };
 
 
