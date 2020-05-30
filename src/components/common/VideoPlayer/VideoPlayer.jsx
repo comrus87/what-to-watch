@@ -2,42 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import history from './../../../history.js';
 
-const film = {
-  name: `Once Upon a Time in America`,
-  posterImage: `https://htmlacademy-react-2.appspot.com/wtw/static/film/poster/Once_Upon_a_Time_in_America.jpg`,
-  previewImage: `https://htmlacademy-react-2.appspot.com/wtw/static/film/preview/Once_Upon_a_Time_in_America.jpg`,
-  backgroundImage: `https://htmlacademy-react-2.appspot.com/wtw/static/film/background/ones_upon_a_time_in_america.jpg`,
-  backgroundColor: `#CBAC79`,
-  description: `A former Prohibition-era Jewish gangster returns...`,
-  rating: 9.9,
-  scoresCount: 276395,
-  director: `Sergio Leone`,
-  starring: [`Robert De Niro`, `James Woods`, `Elizabeth McGovern`],
-  runTime: 229,
-  genre: `Crime`,
-  released: 1984,
-  id: 1,
-  isFavorite: false,
-  videoLink: `http://media.xiph.org/mango/tears_of_steel_1080p.webm`,
-  previewVideoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
-};
 
-
-const VideoPlayer = ({videoRef, videoLink, backgroundImage, id, isPlay, onBtnPlayClick}) => {
+const VideoPlayer = ({videoRef, name, videoLink, backgroundImage, id, isPlay, onBtnPlayClick, onLoadsetDuration, duration, onPlayerUpdateProgress, progress, onBtnFullScreenClick}) => {
 
   return (
     <div className="player">
-      <video ref={videoRef} src={videoLink} className="player__video" poster={backgroundImage}></video>
+      <video
+        ref={videoRef}
+        src={videoLink}
+        className="player__video"
+        poster={backgroundImage}
+        onLoadedMetadata={onLoadsetDuration}
+        onTimeUpdate={onPlayerUpdateProgress}
+      ></video>
 
       <button onClick={() => history.push(`/movie/${id}`)} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler">Toggler</div>
+            <progress className="player__progress" value={progress} max="100"></progress>
+            <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{duration}</div>
         </div>
 
         <div className="player__controls-row">
@@ -58,9 +45,9 @@ const VideoPlayer = ({videoRef, videoLink, backgroundImage, id, isPlay, onBtnPla
             </button>
           }
 
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{name}</div>
 
-          <button type="button" className="player__full-screen">
+          <button onClick={onBtnFullScreenClick} type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>
@@ -78,7 +65,13 @@ VideoPlayer.propTypes = {
   backgroundImage: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   isPlay: PropTypes.bool.isRequired,
-  onBtnPlayClick: PropTypes.func.isRequired
+  onBtnPlayClick: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  onLoadsetDuration: PropTypes.func.isRequired,
+  duration: PropTypes.string.isRequired,
+  onPlayerUpdateProgress: PropTypes.func.isRequired,
+  progress: PropTypes.number.isRequired,
+  onBtnFullScreenClick: PropTypes.func.isRequired
 };
 
 

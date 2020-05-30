@@ -53,3 +53,23 @@ export const formatDate = (date) => {
   const options = {month: `long`, day: `numeric`, year: `numeric`};
   return new Intl.DateTimeFormat(`en-EN`, options).format(new Date(date));
 };
+
+// Форматирует время для видеоплеера
+
+export const formatTimeVideo = (time) => {
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+
+  function addZero(number) {
+    if (number < 10) {
+      return `0` + number;
+    }
+    return number;
+  }
+
+  if (hours > 0) {
+    return `${hours}:${addZero(minutes)}:${(seconds)}`;
+  }
+  return `${addZero(minutes)}:${addZero(seconds)}`;
+};
