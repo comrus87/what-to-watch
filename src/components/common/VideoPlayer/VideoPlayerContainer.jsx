@@ -21,6 +21,7 @@ class VideoPlayerContainer extends React.PureComponent {
     this.onLoadsetDuration = this.onLoadsetDuration.bind(this);
     this.onPlayerUpdateProgress = this.onPlayerUpdateProgress.bind(this);
     this.onBtnFullScreenClick = this.onBtnFullScreenClick.bind(this);
+    this.onClickProgressRewind = this.onClickProgressRewind.bind(this);
   }
 
   onBtnPlayClick() {
@@ -37,6 +38,7 @@ class VideoPlayerContainer extends React.PureComponent {
   onPlayerUpdateProgress() {
     const progress = this.videoRef.current.currentTime * 100 / this.videoRef.current.duration;
     this.setState({progress});
+
   }
 
   onBtnFullScreenClick() {
@@ -51,6 +53,18 @@ class VideoPlayerContainer extends React.PureComponent {
     } else if (video.msRequestFullscreen) {
       video.msRequestFullscreen();
     }
+  }
+
+  onClickProgressRewind(evt) {
+    const width = evt.target.offsetWidth;
+    const currentX = evt.nativeEvent.offsetX;
+    const currentPercent = currentX * 100 / width;
+
+    this.setState({progress: currentPercent}, () => {
+      this.videoRef.current.pause();
+      this.videoRef.current.currentTime = this.videoRef.current.duration * (currentX / width);
+      this.videoRef.current.play();
+    });
   }
 
   render() {
@@ -68,6 +82,7 @@ class VideoPlayerContainer extends React.PureComponent {
         onPlayerUpdateProgress={this.onPlayerUpdateProgress}
         progress={this.state.progress}
         onBtnFullScreenClick={this.onBtnFullScreenClick}
+        onClickProgressRewind={this.onClickProgressRewind}
       />
     );
   }

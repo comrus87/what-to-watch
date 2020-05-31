@@ -3,7 +3,22 @@ import PropTypes from 'prop-types';
 import history from './../../../history.js';
 
 
-const VideoPlayer = ({videoRef, name, videoLink, backgroundImage, id, isPlay, onBtnPlayClick, onLoadsetDuration, duration, onPlayerUpdateProgress, progress, onBtnFullScreenClick}) => {
+const VideoPlayer = (props) => {
+
+  const {videoRef,
+    name,
+    videoLink,
+    backgroundImage,
+    id,
+    isPlay,
+    onBtnPlayClick,
+    onLoadsetDuration,
+    duration,
+    onPlayerUpdateProgress,
+    progress,
+    onBtnFullScreenClick,
+    onClickProgressRewind
+  } = props;
 
   return (
     <div className="player">
@@ -21,7 +36,7 @@ const VideoPlayer = ({videoRef, name, videoLink, backgroundImage, id, isPlay, on
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={progress} max="100"></progress>
+            <progress onClick={onClickProgressRewind} className="player__progress" value={progress} max="100"></progress>
             <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">{duration}</div>
@@ -71,7 +86,8 @@ VideoPlayer.propTypes = {
   duration: PropTypes.string.isRequired,
   onPlayerUpdateProgress: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
-  onBtnFullScreenClick: PropTypes.func.isRequired
+  onBtnFullScreenClick: PropTypes.func.isRequired,
+  onClickProgressRewind: PropTypes.func.isRequired
 };
 
 
