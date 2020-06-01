@@ -7,11 +7,11 @@ import MoreButton from './MoreButton/MoreButton.jsx';
 import Footer from './../common/Footer/Footer.jsx';
 import {FilmPropType} from './../../utils/types.js';
 
-const Main = ({films, isShowButtonMore, onButtonMoreClick, promoFilm}) => {
+const Main = ({films, isShowButtonMore, onButtonMoreClick, promoFilm, authStatus}) => {
 
   return (
     <React.Fragment>
-      <MovieCard promoFilm={promoFilm}/>
+      <MovieCard promoFilm={promoFilm} authStatus={authStatus} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -31,7 +31,8 @@ Main.propTypes = {
   films: PropTypes.arrayOf(FilmPropType).isRequired,
   isShowButtonMore: PropTypes.bool.isRequired,
   onButtonMoreClick: PropTypes.func.isRequired,
-  promoFilm: FilmPropType
+  promoFilm: FilmPropType,
+  authStatus: PropTypes.number.isRequired
 };
 
 export default Main;

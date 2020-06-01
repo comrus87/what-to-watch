@@ -6,8 +6,10 @@ import TabsContainer from './Tabs/TabsContainer.jsx';
 import MoviesList from './../common/MoviesList/MoviesList.jsx';
 import {FilmPropType} from './../../utils/types.js';
 import {Link} from 'react-router-dom';
+import {AUTH_STATUS} from './../../utils/const.js';
 
-const MoviePage = ({film, moreFilms}) => {
+
+const MoviePage = ({film, moreFilms, authStatus}) => {
 
   return (
     <React.Fragment>
@@ -37,14 +39,19 @@ const MoviePage = ({film, moreFilms}) => {
                   <span>Play</span>
                 </Link>
 
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {authStatus === AUTH_STATUS.OK &&
+                  <React.Fragment>
+                    <button className="btn btn--list movie-card__button" type="button">
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
 
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                    <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  </React.Fragment>
+                }
+
               </div>
             </div>
           </div>
@@ -77,7 +84,8 @@ const MoviePage = ({film, moreFilms}) => {
 
 MoviePage.propTypes = {
   film: FilmPropType,
-  moreFilms: PropTypes.arrayOf(FilmPropType).isRequired
+  moreFilms: PropTypes.arrayOf(FilmPropType).isRequired,
+  authStatus: PropTypes.number.isRequired
 };
 
 export default MoviePage;

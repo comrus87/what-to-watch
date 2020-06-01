@@ -7,7 +7,7 @@ export const getCountShownFilms = (state) => state.films.countShownFilms;
 export const getCurrentMovieId = (state) => state.films.currentMovieId;
 export const getCommentsSelector = (state) => state.films.comments;
 export const getPromoFilmSelector = (state) => state.films.promoFilm;
-export const getAuthSelector = (state) => state.user.isAuth;
+export const getAuthSelector = (state) => state.user.authStatus;
 export const getUserSelector = (state) => state.user.user;
 
 // Получаем список жанров

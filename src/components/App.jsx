@@ -6,14 +6,12 @@ import {Route, Switch} from 'react-router-dom';
 import {getFilms, setCurrentMovieId, getFilmComments} from './../redux/filmsReducer.js';
 import {connect} from 'react-redux';
 import VideoPlayerContainer from './common/VideoPlayer/VideoPlayerContainer.jsx';
-import SignIn from './SignIn/SignIn.jsx';
-// import {login} from './../redux/userReducer.js';
+import SignInContainer from './SignIn/SignInContainer.jsx';
 
 class App extends React.PureComponent {
 
   componentDidMount() {
     this.props.getFilms();
-    // this.props.login(`muxm@ail.ru`, `123`);
   }
 
   render() {
@@ -37,7 +35,7 @@ class App extends React.PureComponent {
             }}
           />
 
-          <Route exact path='/auth' render={() => <SignIn />} />
+          <Route exact path='/auth' render={() => <SignInContainer />} />
 
           <Route render={() => (<h1>Страница не найдена</h1>)} />
         </Switch>
@@ -56,7 +54,6 @@ const mapDispatchToProps = {
   getFilms,
   setCurrentMovieId,
   getFilmComments,
-  // login
 };
 
 export default connect(null, mapDispatchToProps)(App);

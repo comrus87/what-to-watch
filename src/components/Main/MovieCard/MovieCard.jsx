@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from './../../common/Header/Header.jsx';
 import {FilmPropType} from './../../../utils/types.js';
 import {Link} from 'react-router-dom';
+import {AUTH_STATUS} from './../../../utils/const.js';
 
-const MovieCard = ({promoFilm}) => {
+const MovieCard = ({promoFilm, authStatus}) => {
 
   return (
     <section className="movie-card">
@@ -36,12 +38,14 @@ const MovieCard = ({promoFilm}) => {
                 <span>Play</span>
               </Link>
 
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              {authStatus === AUTH_STATUS.OK &&
+                <button className="btn btn--list movie-card__button" type="button">
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                  <span>My list</span>
+                </button>
+              }
             </div>
           </div>
         </div>
@@ -52,7 +56,8 @@ const MovieCard = ({promoFilm}) => {
 };
 
 MovieCard.propTypes = {
-  promoFilm: FilmPropType
+  promoFilm: FilmPropType,
+  authStatus: PropTypes.number.isRequired
 };
 
-export default MovieCard;
+export default React.memo(MovieCard);

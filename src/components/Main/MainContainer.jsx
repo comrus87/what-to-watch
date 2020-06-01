@@ -6,7 +6,8 @@ import {
   getShownFilmsSelector,
   isShowButtonMoreSelector,
   getCountShownFilms,
-  getPromoFilmSelector
+  getPromoFilmSelector,
+  getAuthSelector
 } from './../../redux/selectors.js';
 import {connect} from 'react-redux';
 import {COUNT_SHOWN_FILMS} from './../../utils/const.js';
@@ -30,6 +31,7 @@ class MainContainer extends React.PureComponent {
         isShowButtonMore={this.props.isShowButtonMore}
         onButtonMoreClick={this.onButtonMoreClick.bind(this)}
         promoFilm={this.props.promoFilm}
+        authStatus={this.props.authStatus}
       />
     );
   }
@@ -40,7 +42,8 @@ const mapStateToProps = (state) => {
     films: getShownFilmsSelector(state),
     isShowButtonMore: isShowButtonMoreSelector(state),
     countShownFilms: getCountShownFilms(state),
-    promoFilm: getPromoFilmSelector(state)
+    promoFilm: getPromoFilmSelector(state),
+    authStatus: getAuthSelector(state)
   };
 };
 
@@ -55,7 +58,8 @@ MainContainer.propTypes = {
   setCountShowFilms: PropTypes.func.isRequired,
   countShownFilms: PropTypes.number.isRequired,
   getPromoFilm: PropTypes.func.isRequired,
-  promoFilm: FilmPropType
+  promoFilm: FilmPropType,
+  authStatus: PropTypes.number.isRequired
 };
 
 
