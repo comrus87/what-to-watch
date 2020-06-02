@@ -1,1 +1,2 @@
-# Проект что посмотреть
+## Project WTW (HTML Academy)
+  React/Redux
