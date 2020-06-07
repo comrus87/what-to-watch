@@ -6,18 +6,6 @@ const instance = axios.create({
   withCredentials: true
 });
 
-// const onSuccess = (response) => {
-//   return response;
-// };
-
-// const onFail = (err) => {
-//   const {response, request} = err;
-
-//   console.log(request);
-// };
-
-// instance.interceptors.response.use(onSuccess, onFail);
-
 export const filmsApi = {
   getFilms() {
     return instance.get(`/films`).then((response) => response.data);
@@ -32,7 +20,7 @@ export const filmsApi = {
   },
 
   postComments(id, comment) {
-    return instance.post(`/comments/${id}`, {comment}).then((response) => response.data);
+    return instance.post(`/comments/${id}`, comment).then((response) => response.data);
   }
 };
 

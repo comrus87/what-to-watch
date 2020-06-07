@@ -1,6 +1,6 @@
 export const COUNT_SHOWN_FILMS = 8;
 
-export const AUTH_STATUS = {
+export const REQUEST_STATUS = {
   OK: 200,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,

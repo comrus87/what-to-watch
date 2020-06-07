@@ -7,6 +7,7 @@ import {getFilms, setCurrentMovieId, getFilmComments} from './../redux/filmsRedu
 import {connect} from 'react-redux';
 import VideoPlayerContainer from './common/VideoPlayer/VideoPlayerContainer.jsx';
 import SignInContainer from './SignIn/SignInContainer.jsx';
+import AddReviewContainer from './AddReview/AddReviewContainer.jsx';
 
 class App extends React.PureComponent {
 
@@ -32,6 +33,13 @@ class App extends React.PureComponent {
             ({match}) => {
               this.props.setCurrentMovieId(+match.params.id);
               return <VideoPlayerContainer />;
+            }}
+          />
+
+          <Route exact path='/:id/add' render={
+            ({match}) => {
+              this.props.setCurrentMovieId(+match.params.id);
+              return <AddReviewContainer />;
             }}
           />
 

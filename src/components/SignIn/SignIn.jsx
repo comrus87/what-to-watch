@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from './../common/Logo/Logo.jsx';
 import Footer from './../common/Footer/Footer.jsx';
-import {AUTH_STATUS} from './../../utils/const.js';
+import {REQUEST_STATUS} from './../../utils/const.js';
 
 const SignIn = ({handleInput, handleSubmit, isEmailValid, authStatus}) => {
 
@@ -16,7 +16,7 @@ const SignIn = ({handleInput, handleSubmit, isEmailValid, authStatus}) => {
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
-          {authStatus === AUTH_STATUS.BAD_REQUEST ?
+          {authStatus === REQUEST_STATUS.BAD_REQUEST ?
             <div className="sign-in__message">
               <p>We can’t recognize this email <br /> and password combination. Please try again.</p>
             </div>

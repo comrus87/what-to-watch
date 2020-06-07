@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from './../../common/Header/Header.jsx';
 import {FilmPropType} from './../../../utils/types.js';
 import {Link} from 'react-router-dom';
-import {AUTH_STATUS} from './../../../utils/const.js';
+import {REQUEST_STATUS} from './../../../utils/const.js';
 
 const MovieCard = ({promoFilm, authStatus}) => {
 
@@ -38,7 +38,7 @@ const MovieCard = ({promoFilm, authStatus}) => {
                 <span>Play</span>
               </Link>
 
-              {authStatus === AUTH_STATUS.OK &&
+              {authStatus === REQUEST_STATUS.OK &&
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>

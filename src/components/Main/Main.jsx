@@ -35,4 +35,4 @@ Main.propTypes = {
   authStatus: PropTypes.number.isRequired
 };
 
-export default Main;
+export default React.memo(Main);

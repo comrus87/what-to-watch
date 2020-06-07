@@ -6,7 +6,7 @@ import TabsContainer from './Tabs/TabsContainer.jsx';
 import MoviesList from './../common/MoviesList/MoviesList.jsx';
 import {FilmPropType} from './../../utils/types.js';
 import {Link} from 'react-router-dom';
-import {AUTH_STATUS} from './../../utils/const.js';
+import {REQUEST_STATUS} from './../../utils/const.js';
 
 
 const MoviePage = ({film, moreFilms, authStatus}) => {
@@ -39,7 +39,7 @@ const MoviePage = ({film, moreFilms, authStatus}) => {
                   <span>Play</span>
                 </Link>
 
-                {authStatus === AUTH_STATUS.OK &&
+                {authStatus === REQUEST_STATUS.OK &&
                   <React.Fragment>
                     <button className="btn btn--list movie-card__button" type="button">
                       <svg viewBox="0 0 19 20" width="19" height="20">
@@ -48,7 +48,7 @@ const MoviePage = ({film, moreFilms, authStatus}) => {
                       <span>My list</span>
                     </button>
 
-                    <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                    <Link to={`/${film.id}/add`} className="btn movie-card__button">Add review</Link>
                   </React.Fragment>
                 }
 
@@ -88,4 +88,4 @@ MoviePage.propTypes = {
   authStatus: PropTypes.number.isRequired
 };
 
-export default MoviePage;
+export default React.memo(MoviePage);

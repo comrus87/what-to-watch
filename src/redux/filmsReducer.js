@@ -2,6 +2,8 @@ import {filmsApi} from './../api/api.js';
 import {adapterFilms, adapterFilm} from './../utils/adapter.js';
 import {DEFAULT_GENRE} from './../utils/utils.js';
 import {COUNT_SHOWN_FILMS} from './../utils/const.js';
+import history from './../history.js';
+// import {REQUEST_STATUS} from './../utils/const.js';
 
 const SET_FILMS = `films/SET_FILMS`;
 const SET_CURRENT_GENRE = `films/SET_CURRENT_GENRE`;
@@ -72,6 +74,15 @@ export const getPromoFilm = () => (dispatch) => {
   data.then((dataFilm) => {
     const film = adapterFilm(dataFilm);
     dispatch(setPromoFilm(film));
+  });
+};
+
+export const postComment = (id, comment) => () => {
+  let data = filmsApi.postComments(id, comment);
+  data.then(() => {
+    history.push(`/movie/${id}`);
+  }).catch((err) => {
+    throw err;
   });
 };
 

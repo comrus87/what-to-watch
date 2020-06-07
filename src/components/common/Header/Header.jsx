@@ -4,16 +4,19 @@ import Logo from './../Logo/Logo.jsx';
 import {connect} from 'react-redux';
 import {getAuthSelector, getUserSelector} from './../../../redux/selectors.js';
 import {Link} from 'react-router-dom';
-import {AUTH_STATUS} from './../../../utils/const.js';
+import {REQUEST_STATUS} from './../../../utils/const.js';
 
-const Header = ({authStatus, user}) => {
+const Header = ({authStatus, user, children}) => {
 
   return (
 
     <header className="page-header movie-card__head">
       <Logo />
+
+      {children ? children : null}
+
       <div className="user-block">
-        {authStatus === AUTH_STATUS.OK ?
+        {authStatus === REQUEST_STATUS.OK ?
           <div className="user-block__avatar">
             <img src={`https://htmlacademy-react-2.appspot.com` + user.avatarUrl} alt="User avatar" width="63" height="63" />
           </div>
@@ -38,7 +41,8 @@ Header.propTypes = {
     email: PropTypes.string,
     name: PropTypes.string,
     avatarUrl: PropTypes.string
-  })
+  }),
+  children: PropTypes.element
 };
 
 export default connect(mapStateToProps)(Header);

@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from './../../redux/userReducer.js';
 import {getAuthSelector} from './../../redux/selectors.js';
-import {Redirect} from 'react-router-dom';
-import {AUTH_STATUS} from './../../utils/const.js';
-// import history from './../../history.js';
+import {REQUEST_STATUS} from './../../utils/const.js';
+import history from './../../history.js';
 
 class SignInContainer extends React.PureComponent {
 
@@ -36,15 +35,19 @@ class SignInContainer extends React.PureComponent {
     this.props.login(this.state.email, this.state.password);
   }
 
+  componentDidUpdate() {
+    if (this.props.authStatus === REQUEST_STATUS.OK) {
+      history.goBack();
+    }
+  }
+
   render() {
-    return this.props.authStatus === AUTH_STATUS.OK ?
-      <Redirect to="/" />
-      : <SignIn
-        handleInput={this.handleInput}
-        handleSubmit={this.handleSubmit}
-        isEmailValid={this.state.isEmailValid}
-        authStatus={this.props.authStatus}
-      />;
+    return <SignIn
+      handleInput={this.handleInput}
+      handleSubmit={this.handleSubmit}
+      isEmailValid={this.state.isEmailValid}
+      authStatus={this.props.authStatus}
+    />;
   }
 }
 

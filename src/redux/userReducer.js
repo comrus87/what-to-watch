@@ -1,6 +1,6 @@
 import {userApi} from './../api/api.js';
 import {adapterFilm} from './../utils/adapter.js';
-import {AUTH_STATUS} from './../utils/const.js';
+import {REQUEST_STATUS} from './../utils/const.js';
 
 
 const initialState = {
@@ -30,12 +30,12 @@ export const setUser = (user) => ({type: SET_USER, user});
 export const login = (email, password) => (dispatch) => {
   let data = userApi.login(email, password);
   data.then((userData) => {
-    dispatch(setAuthStatus(AUTH_STATUS.OK));
+    dispatch(setAuthStatus(REQUEST_STATUS.OK));
     const user = adapterFilm(userData);
     dispatch(setUser(user));
   }).catch((err) => {
-    if (err.response.status === AUTH_STATUS.BAD_REQUEST) {
-      dispatch(setAuthStatus(AUTH_STATUS.BAD_REQUEST));
+    if (err.response.status === REQUEST_STATUS.BAD_REQUEST) {
+      dispatch(setAuthStatus(REQUEST_STATUS.BAD_REQUEST));
     }
     throw err;
   });
