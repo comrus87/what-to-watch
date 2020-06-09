@@ -5,7 +5,7 @@ import {FilmPropType} from './../../utils/types.js';
 import {Link} from 'react-router-dom';
 
 
-const AddReview = ({film, onFormSubmit, onFieldChange}) => {
+const AddReview = ({film, onFormSubmit, onFieldChange, isShowMessage}) => {
   const COUNT_STARS = 5;
 
   return (
@@ -17,7 +17,7 @@ const AddReview = ({film, onFormSubmit, onFieldChange}) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header>
+        <Header isUserBlock={true}>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
@@ -57,6 +57,8 @@ const AddReview = ({film, onFormSubmit, onFieldChange}) => {
             </div>
           </div>
 
+          {isShowMessage && <p>Оцените пожалуйста фильм</p>}
+
           <div className="add-review__text">
             <textarea
               className="add-review__textarea"
@@ -82,7 +84,8 @@ const AddReview = ({film, onFormSubmit, onFieldChange}) => {
 AddReview.propTypes = {
   film: FilmPropType,
   onFormSubmit: PropTypes.func.isRequired,
-  onFieldChange: PropTypes.func.isRequired
+  onFieldChange: PropTypes.func.isRequired,
+  isShowMessage: PropTypes.bool.isRequired
 };
 
 export default React.memo(AddReview);

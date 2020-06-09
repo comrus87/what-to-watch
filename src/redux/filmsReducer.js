@@ -3,7 +3,6 @@ import {adapterFilms, adapterFilm} from './../utils/adapter.js';
 import {DEFAULT_GENRE} from './../utils/utils.js';
 import {COUNT_SHOWN_FILMS} from './../utils/const.js';
 import history from './../history.js';
-// import {REQUEST_STATUS} from './../utils/const.js';
 
 const SET_FILMS = `films/SET_FILMS`;
 const SET_CURRENT_GENRE = `films/SET_CURRENT_GENRE`;
@@ -11,6 +10,8 @@ const SET_COUNT_SHOW = `films/SET_COUNT_SHOW`;
 const SET_CURRENT_MOVIE_ID = `films/SET_CURRENT_MOVIE_ID`;
 const SET_FILM_COMMENTS = `films/SET_FILM_COMMENTS`;
 const SET_PROMO_FILM = `films/SET_PROMO_FILM`;
+const SET_USERS_FILMS = `user/SET_USERS_FILMS`;
+const MERGE_USER_FILM = `user/MERGE_USER_FILM`;
 
 const initialState = {
   films: [],
@@ -18,7 +19,8 @@ const initialState = {
   countShownFilms: COUNT_SHOWN_FILMS,
   currentMovieId: null,
   comments: [],
-  promoFilm: {}
+  promoFilm: {},
+  userFilms: []
 };
 
 
@@ -42,6 +44,14 @@ const filmsReducer = (state = initialState, action) => {
     case SET_PROMO_FILM:
       return Object.assign({}, state, {promoFilm: action.film});
 
+    case SET_USERS_FILMS:
+      return Object.assign({}, state, {userFilms: action.userFilms});
+
+    case MERGE_USER_FILM:
+      return Object.assign({}, state, {
+        films: state.films.map((film) => film.id === action.film.id ? action.film : film
+        )});
+
     default: return state;
   }
 };
@@ -52,6 +62,8 @@ export const setCountShowFilms = (countShownFilms) => ({type: SET_COUNT_SHOW, co
 export const setCurrentMovieId = (currentMovieId) => ({type: SET_CURRENT_MOVIE_ID, currentMovieId});
 export const setComments = (comments) => ({type: SET_FILM_COMMENTS, comments});
 export const setPromoFilm = (film) => ({type: SET_PROMO_FILM, film});
+export const setUserFilms = (userFilms) => ({type: SET_USERS_FILMS, userFilms});
+export const mergeUserFilm = (film) => ({type: MERGE_USER_FILM, film});
 
 
 export const getFilms = () => (dispatch) => {
@@ -81,8 +93,27 @@ export const postComment = (id, comment) => () => {
   let data = filmsApi.postComments(id, comment);
   data.then(() => {
     history.push(`/movie/${id}`);
-  }).catch((err) => {
-    throw err;
+  });
+};
+
+export const loadUserFilms = () => (dispatch) => {
+  let data = filmsApi.loadUserFilms();
+  data.then((dataFilms) => {
+    const films = adapterFilms(dataFilms);
+    dispatch(setUserFilms(films));
+  });
+};
+
+export const addUserFilm = (id, status) => (dispatch, getState) => {
+  let data = filmsApi.addUserFilm(id, status);
+  data.then((dataFilm) => {
+    const userFilm = adapterFilm(dataFilm);
+    dispatch(mergeUserFilm(userFilm));
+
+    const promoFilm = getState().films.promoFilm;
+    if (promoFilm.id === userFilm.id) {
+      dispatch(setPromoFilm(userFilm));
+    }
   });
 };
 

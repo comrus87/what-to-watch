@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Logo from './../common/Logo/Logo.jsx';
+import Header from './../common/Header/Header.jsx';
 import Footer from './../common/Footer/Footer.jsx';
 import {REQUEST_STATUS} from './../../utils/const.js';
 
@@ -8,11 +8,9 @@ const SignIn = ({handleInput, handleSubmit, isEmailValid, authStatus}) => {
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <Logo />
-
+      <Header clsHeader={`user-page__head`} isUserBlock={false}>
         <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      </Header>
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>

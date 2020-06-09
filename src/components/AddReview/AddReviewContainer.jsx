@@ -13,7 +13,8 @@ class AddReviewContainer extends React.PureComponent {
 
     this.state = {
       rating: 0,
-      textReview: ``
+      textReview: ``,
+      isShowMessage: false
     };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -29,12 +30,20 @@ class AddReviewContainer extends React.PureComponent {
       comment: this.state.textReview
     };
 
-    this.props.postComment(id, comment);
+    if (comment.rating) {
+      this.props.postComment(id, comment);
+    } else {
+      this.setState({isShowMessage: true});
+    }
   }
 
   onFieldChange(evt) {
     const {name, value} = evt.target;
     this.setState({[name]: value});
+
+    if (name === `rating`) {
+      this.setState({isShowMessage: false});
+    }
   }
 
   render() {
@@ -43,6 +52,7 @@ class AddReviewContainer extends React.PureComponent {
         film={this.props.film}
         onFormSubmit={this.onFormSubmit}
         onFieldChange={this.onFieldChange}
+        isShowMessage={this.state.isShowMessage}
       />
     );
   }

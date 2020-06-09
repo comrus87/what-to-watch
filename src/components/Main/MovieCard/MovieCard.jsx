@@ -5,7 +5,7 @@ import {FilmPropType} from './../../../utils/types.js';
 import {Link} from 'react-router-dom';
 import {REQUEST_STATUS} from './../../../utils/const.js';
 
-const MovieCard = ({promoFilm, authStatus}) => {
+const MovieCard = ({promoFilm, authStatus, onAddBtnClick}) => {
 
   return (
     <section className="movie-card">
@@ -14,7 +14,7 @@ const MovieCard = ({promoFilm, authStatus}) => {
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
-      <Header />
+      <Header clsHeader={`movie-card__head`} isUserBlock={true} />
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -39,12 +39,19 @@ const MovieCard = ({promoFilm, authStatus}) => {
               </Link>
 
               {authStatus === REQUEST_STATUS.OK &&
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <React.Fragment>
+                  <button className="btn btn--list movie-card__button" type="button" onClick={onAddBtnClick}>
+                    {promoFilm.isFavorite
+                      ? <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"></use>
+                      </svg>
+                      : <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                    }
+                    <span>My list</span>
+                  </button>
+                </React.Fragment>
               }
             </div>
           </div>
@@ -57,7 +64,8 @@ const MovieCard = ({promoFilm, authStatus}) => {
 
 MovieCard.propTypes = {
   promoFilm: FilmPropType,
-  authStatus: PropTypes.number.isRequired
+  authStatus: PropTypes.number.isRequired,
+  onAddBtnClick: PropTypes.func.isRequired
 };
 
 export default React.memo(MovieCard);

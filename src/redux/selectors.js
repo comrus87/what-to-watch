@@ -9,6 +9,7 @@ export const getCommentsSelector = (state) => state.films.comments;
 export const getPromoFilmSelector = (state) => state.films.promoFilm;
 export const getAuthSelector = (state) => state.user.authStatus;
 export const getUserSelector = (state) => state.user.user;
+export const getUserFilms = (state) => state.films.userFilms;
 
 // Получаем список жанров
 export const getGenresSelector = createSelector(

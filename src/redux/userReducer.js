@@ -2,7 +2,6 @@ import {userApi} from './../api/api.js';
 import {adapterFilm} from './../utils/adapter.js';
 import {REQUEST_STATUS} from './../utils/const.js';
 
-
 const initialState = {
   authStatus: 0,
   user: {}
@@ -27,18 +26,25 @@ const userReducer = (state = initialState, action) => {
 export const setAuthStatus = (authStatus) => ({type: SET_AUTH_STATUS, authStatus});
 export const setUser = (user) => ({type: SET_USER, user});
 
+
+const setUserData = (userData, dispatch) => {
+  dispatch(setAuthStatus(REQUEST_STATUS.OK));
+  const user = adapterFilm(userData);
+  dispatch(setUser(user));
+};
+
 export const login = (email, password) => (dispatch) => {
   let data = userApi.login(email, password);
-  data.then((userData) => {
-    dispatch(setAuthStatus(REQUEST_STATUS.OK));
-    const user = adapterFilm(userData);
-    dispatch(setUser(user));
-  }).catch((err) => {
+  data.then((userData) => setUserData(userData, dispatch)).catch((err) => {
     if (err.response.status === REQUEST_STATUS.BAD_REQUEST) {
       dispatch(setAuthStatus(REQUEST_STATUS.BAD_REQUEST));
     }
-    throw err;
   });
+};
+
+export const checkUser = () => (dispatch) => {
+  let data = userApi.checkUser();
+  data.then((userData) => setUserData(userData, dispatch));
 };
 
 export default userReducer;
